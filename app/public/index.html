@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mind Chat</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0f0f11;
+    --surface:  #18181c;
+    --border:   #2a2a30;
+    --accent:   #7c6af7;
+    --accent2:  #5e4fd4;
+    --text:     #e8e8f0;
+    --muted:    #6b6b80;
+    --user-bg:  #1e1e28;
+    --mind-bg:  #141420;
+    --tag-bg:   #1f1f2e;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+  header h1 { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .dot.offline { background: var(--muted); }
+
+  /* ── Config bar ── */
+  .config {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+  .config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .config-group label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .config-group select, .config-group .card-badge {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+  }
+  .config-group select:focus { border-color: var(--accent); }
+  .card-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .card-badge .avatar {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: white; flex-shrink: 0;
+  }
+  .config-spacer { flex: 1; }
+  .btn-start {
+    padding: 8px 18px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-start:hover { background: var(--accent2); }
+  .btn-start:disabled { background: var(--muted); cursor: not-allowed; }
+
+  /* ── Session info bar ── */
+  .session-bar {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: #0e0e1a;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .session-bar.visible { display: flex; }
+  .session-bar .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .session-bar .tag.card { border-color: var(--accent); color: var(--accent); }
+  .btn-new {
+    margin-left: auto;
+    padding: 3px 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .btn-new:hover { border-color: var(--text); color: var(--text); }
+
+  /* ── Messages ── */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    scroll-behavior: smooth;
+  }
+
+  .msg {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    max-width: 820px;
+    line-height: 1.65;
+    font-size: 14px;
+  }
+  .msg.mind { background: var(--mind-bg); align-self: flex-start; width: 100%; }
+  .msg.user { background: var(--user-bg); align-self: flex-end; max-width: 600px; }
+  .msg.system-msg {
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    align-self: center;
+    padding: 8px 14px;
+    text-align: center;
+  }
+  .msg-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .msg-avatar {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: white; flex-shrink: 0;
+  }
+  .msg-avatar.user-av { background: #2d2d3d; }
+  .msg-name { font-size: 11px; font-weight: 600; color: var(--muted); }
+  .msg-model { font-size: 10px; color: #4a4a5a; margin-left: auto; }
+  .msg-text { white-space: pre-wrap; }
+
+  .thinking {
+    display: flex; gap: 4px; align-items: center; padding: 4px 0;
+  }
+  .thinking span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted);
+    animation: bounce 1.2s infinite;
+  }
+  .thinking span:nth-child(2) { animation-delay: 0.2s; }
+  .thinking span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+
+  /* ── Empty state ── */
+  .empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    padding: 40px;
+    text-align: center;
+  }
+  .empty .icon { font-size: 48px; }
+  .empty h2 { font-size: 16px; font-weight: 600; color: var(--text); }
+  .empty p { font-size: 13px; max-width: 340px; line-height: 1.6; }
+
+  /* ── Input bar ── */
+  .input-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+  textarea {
+    flex: 1;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    line-height: 1.5;
+    min-height: 42px;
+    max-height: 160px;
+    overflow-y: auto;
+    transition: border-color 0.15s;
+  }
+  textarea:focus { border-color: var(--accent); }
+  textarea::placeholder { color: var(--muted); }
+  .btn-send {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--accent);
+    border: none; border-radius: 8px;
+    color: white; font-size: 18px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .btn-send:hover { background: var(--accent2); }
+  .btn-send:disabled { background: var(--muted); cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="dot offline" id="status-dot"></div>
+  <h1>Mind Chat</h1>
+</header>
+
+<!-- Config bar -->
+<div class="config">
+  <div class="config-group">
+    <label>Card</label>
+    <div class="card-badge">
+      <div class="avatar">H</div>
+      <span>Harari Mind</span>
+    </div>
+  </div>
+
+  <div class="config-group">
+    <label>Image</label>
+    <select id="image-select"></select>
+  </div>
+
+  <div class="config-group" id="card-repo-group" style="display:none">
+    <label>Card Repo</label>
+    <input id="card-repo-input" type="text"
+      value="git+https://github.com/curation-labs/harari-mind.git#v1.4.0"
+      placeholder="git+https://github.com/org/card.git#v1.0.0"
+      style="background:var(--tag-bg);border:1px solid var(--border);color:var(--text);font-size:12px;padding:6px 10px;border-radius:6px;outline:none;width:320px;">
+  </div>
+
+  <div class="config-group">
+    <label>Model</label>
+    <select id="model-select"></select>
+  </div>
+
+  <div class="config-group">
+    <label>Length</label>
+    <select id="length-select">
+      <option value="brief">Brief — 1-2 sentences</option>
+      <option value="short">Short — 1 paragraph</option>
+      <option value="medium" selected>Medium — 2-3 paragraphs</option>
+      <option value="long">Long — full depth</option>
+    </select>
+  </div>
+
+  <div class="config-spacer"></div>
+  <button class="btn-start" id="btn-start">Start Chat</button>
+</div>
+
+<!-- Session info bar -->
+<div class="session-bar" id="session-bar">
+  <span>Active session:</span>
+  <span class="tag card" id="tag-card"></span>
+  <span class="tag" id="tag-model"></span>
+  <span class="tag" id="tag-length"></span>
+  <button class="btn-new" id="btn-new">New session</button>
+</div>
+
+<!-- Messages -->
+<div class="messages" id="messages">
+  <div class="empty" id="empty-state">
+    <div class="icon">🧠</div>
+    <h2>Choose your configuration</h2>
+    <p>Select a model and response length above, then click <strong>Start Chat</strong> to begin a conversation with the Harari mind.</p>
+  </div>
+</div>
+
+<!-- Input -->
+<div class="input-bar">
+  <textarea id="input" placeholder="Type a message…" rows="1" disabled></textarea>
+  <button class="btn-send" id="btn-send" disabled>↑</button>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let sessionId = null;
+let messages  = [];  // full conversation history
+let busy      = false;
+
+// ── Load images + models ──────────────────────────────────────────────────────
+async function loadConfig() {
+  const [imagesRes, modelsRes] = await Promise.all([
+    fetch("/api/images"), fetch("/api/models")
+  ]);
+  const { images } = await imagesRes.json();
+  const { models } = await modelsRes.json();
+
+  const imgSel = $("image-select");
+  imgSel.innerHTML = "";
+  for (const img of images) {
+    const opt = document.createElement("option");
+    opt.value       = img.id;
+    opt.dataset.requiresCardRepo = img.requiresCardRepo;
+    opt.dataset.startupMs        = img.startupMs;
+    opt.textContent = `${img.id}`;
+    opt.title       = img.description;
+    imgSel.appendChild(opt);
+  }
+  imgSel.addEventListener("change", () => {
+    const selected = imgSel.options[imgSel.selectedIndex];
+    $("card-repo-group").style.display =
+      selected.dataset.requiresCardRepo === "true" ? "flex" : "none";
+  });
+
+  const modelSel = $("model-select");
+  modelSel.innerHTML = "";
+  for (const m of models) {
+    const opt = document.createElement("option");
+    opt.value       = m.id;
+    opt.textContent = `${m.name} (${m.provider})`;
+    modelSel.appendChild(opt);
+  }
+}
+loadConfig();
+
+// ── Start session ─────────────────────────────────────────────────────────────
+$("btn-start").addEventListener("click", async () => {
+  if (sessionId) await endSession();
+
+  const image    = $("image-select").value;
+  const model    = $("model-select").value;
+  const length   = $("length-select").value;
+  const cardRepo = $("card-repo-input").value.trim();
+  const imgSel   = $("image-select");
+  const startupS = Math.round((parseInt(imgSel.options[imgSel.selectedIndex]?.dataset.startupMs || "8000")) / 1000);
+
+  $("btn-start").disabled    = true;
+  $("btn-start").textContent = "Starting…";
+  addSystemMsg(`Starting ${image} — this takes ~${startupS}s…`);
+
+  try {
+    const res  = await fetch("/api/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image, model, length, cardRepo }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    sessionId = data.sessionId;
+    messages  = [];
+    $("messages").innerHTML = "";
+
+    // Update session bar
+    $("session-bar").classList.add("visible");
+    $("tag-card").textContent   = `Harari Mind · ${image}`;
+    $("tag-model").textContent  = $("model-select").options[$("model-select").selectedIndex].textContent.split(" (")[0];
+    $("tag-length").textContent = $("length-select").options[$("length-select").selectedIndex].textContent.split(" —")[0];
+
+    $("status-dot").classList.remove("offline");
+    $("input").disabled   = false;
+    $("btn-send").disabled = false;
+    $("input").focus();
+
+    // Generate greeting
+    await sendMessage("Begin the conversation. Introduce yourself in 2-3 sentences in your own voice, then ask: What would you like to explore?", true);
+
+  } catch (err) {
+    addSystemMsg(`Error: ${err.message}`);
+  } finally {
+    $("btn-start").disabled    = false;
+    $("btn-start").textContent = "Start Chat";
+  }
+});
+
+$("btn-new").addEventListener("click", () => {
+  if (confirm("Start a new session? The current conversation will end.")) {
+    $("btn-start").click();
+  }
+});
+
+async function endSession() {
+  if (!sessionId) return;
+  await fetch(`/api/session/${sessionId}`, { method: "DELETE" }).catch(() => {});
+  sessionId = null;
+  messages  = [];
+  $("status-dot").classList.add("offline");
+  $("input").disabled    = true;
+  $("btn-send").disabled = true;
+  $("session-bar").classList.remove("visible");
+}
+
+// ── Send message ──────────────────────────────────────────────────────────────
+async function sendMessage(text, hidden = false) {
+  if (busy || !sessionId) return;
+  busy = true;
+  $("btn-send").disabled = true;
+
+  if (!hidden) {
+    addMsg("user", "You", text);
+  }
+
+  
+
+  const thinkingEl = addThinking();
+
+  try {
+    const res  = await fetch(`/api/session/${sessionId}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    thinkingEl.remove();
+    addMsg("mind", "Harari", data.text, data.model);
+    
+
+  } catch (err) {
+    thinkingEl.remove();
+    addSystemMsg(`Error: ${err.message}`);
+  }
+
+  busy = false;
+  $("btn-send").disabled = false;
+  $("input").focus();
+}
+
+// ── Input handling ────────────────────────────────────────────────────────────
+$("btn-send").addEventListener("click", () => {
+  const text = $("input").value.trim();
+  if (!text) return;
+  $("input").value = "";
+  autoResize($("input"));
+  sendMessage(text);
+});
+
+$("input").addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    $("btn-send").click();
+  }
+});
+
+$("input").addEventListener("input", () => autoResize($("input")));
+
+function autoResize(el) {
+  el.style.height = "auto";
+  el.style.height = Math.min(el.scrollHeight, 160) + "px";
+}
+
+// ── DOM helpers ───────────────────────────────────────────────────────────────
+function addMsg(role, name, text, model) {
+  const el = document.createElement("div");
+  el.className = `msg ${role}`;
+
+  const modelLabel = model
+    ? `<span class="msg-model">${model.split("/")[1] ?? model}</span>`
+    : "";
+
+  el.innerHTML = `
+    <div class="msg-header">
+      <div class="msg-avatar ${role === "user" ? "user-av" : ""}">${name[0]}</div>
+      <span class="msg-name">${name}</span>
+      ${modelLabel}
+    </div>
+    <div class="msg-text">${escHtml(text)}</div>
+  `;
+  appendToMessages(el);
+  return el;
+}
+
+function addThinking() {
+  const el = document.createElement("div");
+  el.className = "msg mind";
+  el.innerHTML = `
+    <div class="msg-header">
+      <div class="msg-avatar">H</div>
+      <span class="msg-name">Harari</span>
+    </div>
+    <div class="thinking"><span></span><span></span><span></span></div>
+  `;
+  appendToMessages(el);
+  return el;
+}
+
+function addSystemMsg(text) {
+  const el = document.createElement("div");
+  el.className = "msg system-msg";
+  el.textContent = text;
+  appendToMessages(el);
+  return el;
+}
+
+function appendToMessages(el) {
+  const container = $("messages");
+  const empty = $("empty-state");
+  if (empty) empty.remove();
+  container.appendChild(el);
+  container.scrollTop = container.scrollHeight;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+</script>
+</body>
+</html>

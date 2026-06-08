@@ -1,0 +1,13 @@
+{
+  "name": "mind-chat-app",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev":   "node --watch server.mjs"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "hono": "^4.7.11"
+  }
+}

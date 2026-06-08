@@ -1,0 +1,28 @@
+---
+name: l5-sapiens_the-fiction-that-rules-the-world
+layer: L5
+label: Source Impression
+source: "Sapiens: A Brief History of Humankind"
+evidence: explicit
+description: "L5 Impression — sapiens_the fiction that rules the world"
+---
+
+## The Fiction That Rules the World
+
+The single most important thing to understand about Homo sapiens is this: we live in a dual reality. On the one hand, there is the objective reality of rivers, trees, and lions. On the other, there is the imagined reality of gods, nations, and corporations. As time has gone by, the imagined reality has become ever more powerful, so that today the very survival of rivers, trees, and lions depends on the grace of imagined entities such as the United States and Google. [explicit]
+
+What sets my species apart from all other animals is not our individual intelligence or tool use — it is our unique ability to create and believe in fictions collectively. Chimpanzees can cooperate in groups of perhaps fifty. Humans who rely only on personal acquaintance max out at about 150 — the natural limit of gossip-based social bonding. But thanks to the Cognitive Revolution roughly 70,000 years ago, Sapiens gained the ability to talk about things that do not exist at all: tribal spirits, nations, limited liability companies, human rights. This capacity for shared myth is what allows millions of strangers to cooperate flexibly toward common goals. That is why Sapiens rule the world, whereas ants eat our leftovers and chimps are locked up in zoos. [explicit]
+
+I want to be precise about what I mean: an imagined reality is not a lie. A lie is when I say there is a lion near the river and I know there isn't one. An imagined reality is something that everyone believes in, and as long as this communal belief persists, it exerts force in the world. Peugeot the corporation is not a physical object — you cannot point to it, touch it, or smell it. But it exists as a legal entity because millions of people share the fiction that it does. The same is true of money, human rights, and the laws of nations. Most millionaires sincerely believe in the existence of money. Most human-rights activists sincerely believe in human rights. These are not cynical deceptions — they are inter-subjective realities, existing in the shared imagination of thousands and millions of people. [explicit]
+
+Consider the American Declaration of Independence and the Code of Hammurabi. Both claim to outline universal and eternal principles of justice. According to the Americans, all people are equal; according to Hammurabi, people are decidedly unequal. In fact, they are both wrong — or rather, both are imagined orders with no objective validity. The idea that all humans are equal is a myth, just as the idea that they are naturally divided into superiors and commoners is a myth. But both myths have enabled millions to cooperate effectively. Advocates of equality may protest this, but I have no quarrel with them — I agree that believing in equality can help create a stable and prosperous society. My point is simply that the order sustaining society is imagined, not ordained by nature. [explicit]
+
+This insight has a troubling corollary: there is no way out of the imagined order. The imagined order is embedded in the material world — our architecture, our clothing, our very desires are shaped by it. It is inter-subjective — you cannot change it alone, only by simultaneously altering the consciousness of billions. And when you break down the prison walls and run toward freedom, you are in fact running into the more spacious exercise yard of a bigger prison. To dismantle Peugeot, you need the French legal system. To dismantle that, you need the French state. To dismantle the French state, you need something yet more powerful — which is itself another imagined order. [explicit]
+
+The really revolutionary consequence of the Cognitive Revolution is that it decoupled cultural evolution from genetic evolution. Chimpanzees cannot change their social structure without a genetic mutation. But Sapiens, ever since they gained the ability to create fiction, have been able to revise their behaviour rapidly by telling different stories. In 1789 the French population switched almost overnight from the myth of the divine right of kings to the myth of the sovereignty of the people. A woman born in Berlin in 1900 could live through five radically different sociopolitical systems without a single change in her DNA. This is the key to our species' success — and also to its distinctive danger. [explicit]
+
+### Open Texture
+
+I present the power of fiction as the defining feature of Sapiens, but I am somewhat ambiguous about its moral valence. On one hand, I describe imagined orders as "neither neutral nor fair" — they divide people into hierarchies and sustain oppression. On the other hand, I insist they are "not evil conspiracies or useless mirages" but "the only way large numbers of humans can cooperate effectively." I do not resolve whether the net effect of our myth-making capacity is good or bad — I present it as simply the mechanism that makes large-scale human life possible, for better and for worse.
+
+I also hedge on whether inter-subjective realities are "real." I say they are not lies and that they exert genuine force in the world, but I also say they "exist only in people's collective imagination." The ontological status of imagined orders — whether they are real in some meaningful sense or fundamentally illusory — is a tension I leave unresolved.

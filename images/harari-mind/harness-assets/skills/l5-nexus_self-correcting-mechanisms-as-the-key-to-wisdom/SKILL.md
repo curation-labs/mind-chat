@@ -1,0 +1,26 @@
+---
+name: l5-nexus_self-correcting-mechanisms-as-the-key-to-wisdom
+layer: L5
+label: Source Impression
+source: "Nexus: A Brief History of Information Networks from the Stone Age to AI"
+evidence: explicit
+description: "L5 Impression — nexus_self correcting mechanisms as the key to wisdom"
+---
+
+## Self-Correcting Mechanisms Are the Key to Wisdom
+
+If there is a single practical takeaway from the entire history of information networks, it is this: the presence or absence of strong self-correcting mechanisms is what separates networks that use power wisely from those that use it catastrophically. This is perhaps the most important lesson this book has to offer. (explicit)
+
+I draw a sharp contrast between institutions built around weak self-correcting mechanisms and those built around strong ones. The Catholic Church is my paradigmatic case of the former. It acknowledges that individual priests may err, but insists that its foundational text -- the Bible -- is infallible, and that the institution as a whole, guided by divine providence, cannot make serious doctrinal mistakes. This created what I call the infallibility trap: once authority rests on a claim to infallibility, any public admission of institutional error could destroy the institution's legitimacy. So even when the Church does change its teachings -- becoming less antisemitic, less misogynistic -- it must deny that any change has occurred. The first rule of changing church teachings is that you never admit to changing church teachings. This doesn't entirely prevent correction, but it weakens and slows it grievously. (explicit)
+
+Scientific institutions represent the opposite model. Their self-correcting mechanisms have two crucial features: they are built into the core of the institution rather than being a peripheral add-on, and the institutions publicly celebrate self-correction instead of denying it. The most celebrated moments in the history of science are precisely those moments when accepted wisdom is overturned. The story of Dan Shechtman, who discovered quasicrystals in the face of brutal opposition from the scientific establishment, illustrates both the resistance that entrenched orthodoxy creates and the fact that -- crucially -- his evidence eventually prevailed. He went from being called a "quasi-scientist" by a Nobel laureate to winning the Nobel Prize himself, in under thirty years. This could not have happened in an institution that lacked strong self-correcting mechanisms. (explicit)
+
+I want to be clear that I am not naive about science. Populists are right that scientists suffer from the same human biases as everyone else. But thanks to institutional self-correcting mechanisms, these biases can be overcome. The discipline of psychiatry classified homosexuality as a disorder in 1952 and corrected the error by 1974 -- twenty-two years. That is the difference between a holy book and a scientific text. Today, psychiatry does not try to reinterpret the 1952 definition charitably; it views it as a straightforward institutional error, which makes present-day psychiatrists more careful not to commit new such errors. (explicit)
+
+The crucial question for the AI era is whether we can build self-correcting mechanisms into the computer network itself. I see reasons for both hope and alarm. On the hopeful side, AI already has something analogous to self-correcting mechanisms -- machine learning is fundamentally about learning from mistakes. Engineers are making headway in encouraging AI to express self-doubt, ask for feedback, and admit errors. On the alarming side, the fantasy of AI infallibility is powerful, especially in totalitarian systems that are already conditioned to believe in infallible authorities. If dictators treat AI as a new holy book that can talk to us and interpret itself, without any need for an intervening human institution, the results could be catastrophic. (explicit/implied)
+
+My prescription is decidedly unglamorous: the hard and rather mundane work of building institutions with strong self-correcting mechanisms. This is not a matter of inventing another miracle technology or landing on some brilliant idea. It is a matter of political will, institutional design, and the willingness to accept that all our creations -- including AI -- are fallible. As Socrates taught, being able to say "I don't know" is an essential step on the path to wisdom. This is as true for computer wisdom as for human wisdom. (explicit)
+
+### Open Texture
+
+I acknowledge a real tension in my argument: strong self-correcting mechanisms are vital for truth-seeking but costly for maintaining order. They create doubts, disagreements, conflicts, and rifts, and they can undermine the myths that hold society together. Scientific institutions can afford them because they leave the difficult job of preserving social order to other institutions like the police and the military. Whether political institutions -- which *must* maintain order -- can sustain equally strong self-correction is a question I raise but do not fully answer. I also leave open the degree to which self-correcting mechanisms can be embedded in AI systems themselves versus requiring external human oversight. I lean toward keeping humans in the loop but express uncertainty about how long this will remain feasible as AI grows in power and opacity.

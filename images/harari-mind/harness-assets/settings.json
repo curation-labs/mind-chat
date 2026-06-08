@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@^2.0.0"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@^1.0.0"
+      ]
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    }
+  },
+  "_drwn": {
+    "version": 1,
+    "managedKeys": [
+      "mcpServers"
+    ],
+    "fieldHashes": {
+      "mcpServers": "sha256-ab000fb624b3b8bdafaee240f226e68af529c733da37d71b2387438273397bb7"
+    },
+    "lastWriteAt": "2026-06-03T23:38:10.119Z"
+  }
+}
